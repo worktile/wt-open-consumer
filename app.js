@@ -44,6 +44,13 @@ app.get('/auth/wt-pro/callback',
         // Successful authentication, redirect home.
         res.redirect('/success');
     });
+app.get('/auth/slack', passport.authenticate('slack', {scope: "team:read"}));
+app.get('/auth/slack/callback',
+    passport.authenticate('slack', {failureRedirect: '/login'}),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/success');
+    });
 app.get('/',
     function (req, res) {
         res.render('index.html');
